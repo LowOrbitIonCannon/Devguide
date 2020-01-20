@@ -12,7 +12,7 @@ MacOS is a supported development platform for PX4. The following instructions se
 
 Increase the maximum allowed number of open files on macOS using the *Terminal* command:
 ```sh
-ulimit -S -n 300
+ulimit -S -n 2048
 ```
 
 > **Note**  At time of writing (December 2018) the master branch uses more than the default maximum allowed open files on macOS (256 in all running processes).
@@ -41,11 +41,13 @@ If the installation outputs an error message about missing requirements follow t
 brew cask install xquartz java
 ```
 
-Install pip if you don't already have it and use it to install the required packages:
+Make sure you have Python 3 installed.
 
 ```sh
-sudo easy_install pip
-sudo -H pip install pyserial empy toml numpy pandas jinja2 pyyaml
+brew install python3
+
+# install required packages using pip3
+pip3 install --user pyserial empy toml numpy pandas jinja2 pyyaml pyros-genmsg
 ```
 
 ## Additional Tools

@@ -2,6 +2,26 @@
 Subcategories:
 - [Distance Sensor](modules_driver_distance_sensor.md)
 
+## adc
+Source: [drivers/adc](https://github.com/PX4/Firmware/tree/master/src/drivers/adc)
+
+
+### Description
+ADC driver.
+
+
+### Usage {#adc_usage}
+```
+adc <command> [arguments...]
+ Commands:
+   start
+
+   test
+
+   stop
+
+   status        print status info
+```
 ## atxxxx
 Source: [drivers/osd/atxxxx](https://github.com/PX4/Firmware/tree/master/src/drivers/osd/atxxxx)
 
@@ -319,6 +339,49 @@ gps <command> [arguments...]
    reset         Reset GPS device
      cold|warm|hot Specify reset type
 ```
+## ina226
+Source: [drivers/power_monitor/ina226](https://github.com/PX4/Firmware/tree/master/src/drivers/power_monitor/ina226)
+
+
+### Description
+Driver for the INA226 power monitor.
+
+Multiple instances of this driver can run simultaneously, if each instance has a separate bus OR I2C address.
+
+For example, one instance can run on Bus 2, address 0x41, and one can run on Bus 2, address 0x43.
+
+If the INA226 module is not powered, then by default, initialization of the driver will fail. To change this, use
+the -f flag. If this flag is set, then if initialization fails, the driver will keep trying to initialize again
+every 0.5 seconds. With this flag set, you can plug in a battery after the driver starts, and it will work. Without
+this flag set, the battery must be plugged in before starting the driver.
+
+
+### Usage {#ina226_usage}
+```
+ina226 <command> [arguments...]
+ Commands:
+   start         Start a new instance of the driver
+     [-a]        If set, try to start the driver on each availabe I2C bus until
+                 a module is found
+     [-f]        If initialization fails, keep retrying periodically. Ignored if
+                 the -a flag is set. See full driver documentation for more info
+     [-b <val>]  I2C bus (default: use board-specific bus)
+                 default: 0
+     [-d <val>]  I2C Address (Start with '0x' for hexadecimal)
+                 default: 65
+     [-t <val>]  Which battery calibration values should be used (1 or 2)
+                 default: 1
+
+   stop          Stop one instance of the driver
+     [-b <val>]  I2C bus (default: use board-specific bus)
+                 default: 0
+     [-d <val>]  I2C Address (Start with '0x' for hexadecimal)
+                 default: 65
+
+   status        Status of every instance of the driver
+
+   info          Status of every instance of the driver
+```
 ## pga460
 Source: [drivers/distance_sensor/pga460](https://github.com/PX4/Firmware/tree/master/src/drivers/distance_sensor/pga460)
 
@@ -385,18 +448,12 @@ This module does the RC input parsing and auto-selecting the method. Supported m
 - ST24
 - TBS Crossfire (CRSF)
 
-### Implementation
-By default the module runs on the work queue, to reduce RAM usage. It can also be run in its own thread,
-specified via start flag -t, to reduce latency.
-When running on the work queue, it schedules at a fixed frequency.
 
 ### Usage {#rc_input_usage}
 ```
 rc_input <command> [arguments...]
  Commands:
-   start         Start the task (without any mode set, use any of the mode_*
-                 cmds)
-     [-t]        Run as separate task instead of the work queue
+   start
      [-d <val>]  RC device
                  values: <file:dev>, default: /dev/ttyS3
 

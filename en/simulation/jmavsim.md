@@ -35,7 +35,7 @@ This will bring up the PX4 shell:
 [init] shell id: 140735313310464
 [init] task name: px4
 
-______  __   __    ___ 
+______  __   __    ___
 | ___ \ \ \ / /   /   |
 | |_/ /  \ V /   / /| |
 |  __/   /   \  / /_| |
@@ -140,7 +140,7 @@ The simulation can be [interfaced to ROS](../simulation/ros_interface.md) the sa
 
 ## Important Files
 
-* The startup script is in the [posix-configs/SITL/init](https://github.com/PX4/Firmware/tree/master/posix-configs/SITL/init) folder and named `rcS_SIM_AIRFRAME`, the default is `rcS_jmavsim_iris`.
+* The startup scripts are discussed in [System Startup](../concept/system_startup.md).
 * The simulated root file system ("`/`" directory) is created inside the build directory here: `build/px4_sitl_default/tmp/rootfs`.
 
 ## Troubleshooting
@@ -183,15 +183,16 @@ rm -rf Tools/jMAVSim/out
 
 #### macOS
 
-Either [download Oracle Java 8](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) or use Brew:
-
+We recommend to install OpenJDK 8 from [AdoptOpenJDK](https://adoptopenjdk.net/) using brew:
 ```
-brew tap caskroom/versions
-brew cask install java8
+brew tap adoptopenjdk/openjdk
+brew cask install adoptopenjdk8
 brew install ant
 export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 rm -rf Tools/jMAVSim/out
 ```
+
+Alternatively you could [download Oracle Java 8](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) and install it manually.
 
 
 ### java.awt.AWTError: Assistive Technology not found: org.GNOME.Accessibility.AtkWrapper

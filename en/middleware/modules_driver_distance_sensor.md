@@ -32,8 +32,6 @@ leddar_one <command> [arguments...]
                  default: 25
 
    stop          Stop driver
-
-   test          Test driver (basic functional tests)
 ```
 ## ll40ls
 Source: [drivers/distance_sensor/ll40ls](https://github.com/PX4/Firmware/tree/master/src/drivers/distance_sensor/ll40ls)
@@ -80,6 +78,40 @@ ll40ls <command> [arguments...]
                  default: 25
 
    status        Print driver status information
+
+   stop          Stop driver
+```
+## sf0x
+Source: [drivers/distance_sensor/sf0x](https://github.com/PX4/Firmware/tree/master/src/drivers/distance_sensor/sf0x)
+
+
+### Description
+
+Serial bus driver for the LightWare SF02/F, SF10/a, SF10/b, SF10/c, SF11/c Laser rangefinders.
+
+Most boards are configured to enable/start the driver on a specified UART using the SENS_SF0X_CFG parameter.
+
+Setup/usage information: https://docs.px4.io/en/sensor/sfxx_lidar.html
+
+### Examples
+
+Attempt to start driver on a specified serial device.
+```
+sf0x start -d /dev/ttyS1
+```
+Stop driver
+```
+sf0x stop
+```
+
+### Usage {#sf0x_usage}
+```
+sf0x <command> [arguments...]
+ Commands:
+   start         Start driver
+     -d <val>    Serial device
+     [-R <val>]  Sensor rotation - downward facing by default
+                 default: 25
 
    stop          Stop driver
 ```
@@ -203,4 +235,37 @@ tfmini <command> [arguments...]
    test          Test driver (basic functional tests)
 
    status        Print driver status
+```
+## ulanding_radar
+Source: [drivers/distance_sensor/ulanding_radar](https://github.com/PX4/Firmware/tree/master/src/drivers/distance_sensor/ulanding_radar)
+
+
+### Description
+
+Serial bus driver for the Aerotenna uLanding radar.
+
+Setup/usage information: https://docs.px4.io/v1.9.0/en/sensor/ulanding_radar.html
+
+### Examples
+
+Attempt to start driver on a specified serial device.
+```
+ulanding_radar start -d /dev/ttyS1
+```
+Stop driver
+```
+ulanding_radar stop
+```
+
+### Usage {#ulanding_radar_usage}
+```
+ulanding_radar <command> [arguments...]
+ Commands:
+   start         Start driver
+     -d <val>    Serial device
+                 values: <file:dev>, default: /dev/ttyS3
+     [-R <val>]  Sensor rotation - downward facing by default
+                 default: 25
+
+   stop          Stop driver
 ```
